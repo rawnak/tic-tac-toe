@@ -44,23 +44,29 @@ int main()
     char player_input_arr [3][3];
     char input_arr[9]; // approach2
     int available_slot_found = 0;
+    bool game_over = 0;
     int x; // row index
     int y; // column index
     int i; // loop counter for row
     int j; // loop counter for column
     // rand() function will generate a number between 0 and n
     int n = 8;
-
+    // Setting a seed for the rand() function
     srand(time(NULL));
     
 /*
-    // Initialize every slot in user_input_arr with 'T'.
+    // Initialize every slot in input_arr with 'T'.
     for(int i = 0; i<3; ++i){
         for(int j = 0; j<3; ++j){
             player_input_arr[i][j] = 'T';
         }
     }   
 */
+// Initialize every slot in input_arr with 'T'.
+    for(int i = 0; i < 9; ++i){
+        input_arr[i] = 'T';
+    } 
+    
     display_board('0', '1', '2', '3', '4', '5', '6', '7', '8');
     user_input = get_user_input();
     input_arr[user_input] = 'X'; // approach2
@@ -70,16 +76,56 @@ int main()
     y = user_input % 3;
     player_input_arr[x][y] = 'X';
    */
-/*
-    // Generate a random number between 0 and 7 (inclusive)
-    computer_choice = rand() % 8;
+
+    // Generate a random number between 0 and n
+    computer_choice = rand() % n;
     printf("%d\n", computer_choice); // Test purpose: to see the generated number
 
-    // Find the row and column indices for the computer-chosen spot
-    x = computer_choice / 3;
-    y = computer_choice % 3;
-    player_input_arr[x][y] = 'O';
-*/
+    // Place symbol 'O' into computer-chosen spot
+    for(int i = 0; i <= computer_choice; ++i){
+        if (input_arr[i] == 'T'){
+            if (available_slot_found == computer_choice){
+                input_arr[i] = 'O';
+            }
+            else {
+                available_slot_found += 1;
+            }
+        }
+    }
+
+    do {
+        // Get user input
+        // Place user's symbol
+        // Display updated board
+        // Get computer's input
+        // Place computer's symbol
+        // Display updated board
+        // Check winning cases
+        // Matching Rows
+        if (input_arr[0] == input_arr[1] && input_arr[1] == input_arr[2])
+            break;
+        if (input_arr[3] == input_arr[4] && input_arr[4] == input_arr[5])
+            break;
+        if (input_arr[6] == input_arr[7] && input_arr[7] == input_arr[8])
+            break;
+        // Matching Columns
+        if (input_arr[0] == input_arr[3] && input_arr[3] == input_arr[6])
+            break;
+        if (input_arr[1] == input_arr[4] && input_arr[4] == input_arr[7])
+            break;
+        if (input_arr[2] == input_arr[5] && input_arr[5] == input_arr[8])
+            break;
+        // Matching Diagonals
+        if (input_arr[0] == input_arr[4] && input_arr[4] == input_arr[8])
+            break;
+        if (input_arr[2] == input_arr[4] && input_arr[4] == input_arr[6])
+            break;
+    } while(!game_over)
+
+// Print winning msg
+// Ask if the user wants to play again
+ 
+
 /*
     // keep getting inputs until there's no available slot left
     for(i = 0; i < 9; ++i) {
@@ -100,6 +146,12 @@ int main()
     // Approach2
     display_board(input_arr[0], input_arr[1], input_arr[2], input_arr[3], input_arr[4], 
                   input_arr[5], input_arr[6], input_arr[7], input_arr[8]);
+
+    // Print data stored in input_arr
+    for(i = 0; i < 9; ++i) {
+        printf("%c\n", input_arr[i]);
+    }
+
     /*
     // Print data stored in user_input_arr
     for(i = 0; i<3; ++i){
@@ -108,5 +160,6 @@ int main()
         }
     }
 */
+
     return 0;
 }
