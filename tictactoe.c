@@ -30,33 +30,33 @@ int get_user_input()
 }
 // Checks for three matching symbols. If found, returns the symbol. 
 char check_winning_cases (char a0, char a1, char a2, char a3, 
-                   char a4, char a5, char a6, char a7, char a8)
+        char a4, char a5, char a6, char a7, char a8)
 {
-        // Matching Rows
-        if (input_arr[0] == input_arr[1] && input_arr[1] == input_arr[2])
-            return input_arr[0];
-        else if (input_arr[3] == input_arr[4] && input_arr[4] == input_arr[5])
-            return input_arr[3];
-        else if (input_arr[6] == input_arr[7] && input_arr[7] == input_arr[8])
-            return input_arr[6];
-        // Matching Columns
-        else if (input_arr[0] == input_arr[3] && input_arr[3] == input_arr[6])
-            return input_arr[0];
-        else if (input_arr[1] == input_arr[4] && input_arr[4] == input_arr[7])
-            return input_arr[1];
-        else if (input_arr[2] == input_arr[5] && input_arr[5] == input_arr[8])
-            return input_arr[2];
-        // Matching Diagonals
-        else if (input_arr[0] == input_arr[4] && input_arr[4] == input_arr[8])
-            return input_arr[0];
-        else if (input_arr[2] == input_arr[4] && input_arr[4] == input_arr[6])
-            return input_arr[2];
-        // No one wins, so the game is a draw. 'd' stands for 'draw'
-         else if (n < 0)
-            return 'd';
-        // 'c' indicates to continue with the game loop
-        else
-            return 'c'; 
+    // Matching Rows
+    if (a0 == a1 && a1 == a2)
+        return a1;
+    else if (a3 == a4 && a4 == a5)
+        return a3;
+    else if (a6 == a7 && a7 == a8)
+        return a6;
+    // Matching Columns
+    else if (a0 == a3 && a3 == a6)
+        return a0;
+    else if (a1 == a4 && a4 == a7)
+        return a1;
+    else if (a2 == a5 && a5 == a8)
+        return a2;
+    // Matching Diagonals
+    else if (a0 == a4 && a4 == a8)
+        return a0;
+    else if (a2 == a4 && a4 == a6)
+        return a2;
+    // No one wins, so the game is a draw. 'd' stands for 'draw'
+    //else if (n < 0)
+    //return 'd';
+    // 'c' indicates to continue with the game loop
+    else
+        return 'c'; 
 }
 
 char game()
@@ -70,7 +70,6 @@ char game()
     // function will generate a number between 0 and n.
     int n = 9;
     int i; // Loop counter
-    int game_over = 0;
     // Store the return value from check_winning_cases()
     char result;
       
@@ -86,7 +85,8 @@ char game()
         display_board(input_arr[0], input_arr[1], input_arr[2], input_arr[3], input_arr[4], 
                       input_arr[5], input_arr[6], input_arr[7], input_arr[8]);
         // Check winning cases after user's input
-        result = check_winning_cases();
+        result = check_winning_cases(input_arr[0], input_arr[1], input_arr[2], input_arr[3], input_arr[4], 
+                                     input_arr[5], input_arr[6], input_arr[7], input_arr[8]);
         if (result != 'c')
              return result;
         // Get computer's input
@@ -113,10 +113,16 @@ char game()
         display_board(input_arr[0], input_arr[1], input_arr[2], input_arr[3], input_arr[4], 
                       input_arr[5], input_arr[6], input_arr[7], input_arr[8]);
         // Check winning cases after computer's input
-        result = check_winning_cases();
+        result = check_winning_cases(input_arr[0], input_arr[1], input_arr[2], input_arr[3], input_arr[4], 
+                                     input_arr[5], input_arr[6], input_arr[7], input_arr[8]);
         if (result != 'c')
             return result;
-    } while(!game_over);
+        // No winner found and there is no more available slot, so the game is 
+        // a draw. 'd' stands for 'draw'
+        else if (n < 0)
+            return 'd';
+
+    } while(1);
 }
 
 // Print winning msg
