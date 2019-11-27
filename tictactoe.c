@@ -53,7 +53,7 @@ void get_computer_input(char* arr, int num_of_available_slot)
 
     // Test purpose: to see the generated number and the number of
     // available spot
-    printf("number of available slot: %d, computer's choice: %d\n", num_of_available_slot, computer_choice);
+    printf("Remaining available spot: %d, computer's choice: %d\n", num_of_available_slot, computer_choice);
     // Place symbol 'O' into computer-chosen spot
     // TODO explain why the loop may need to run 9 times
     for(int i = 0; i <= 8; ++i){
@@ -162,7 +162,7 @@ void print_game_result(char winner_symbol)
     }
 }
 
-void play_game() { 
+int play_game() { 
     char continue_playing;
     int result; // Store the return value from game() function
     
@@ -172,25 +172,23 @@ void play_game() {
     // Ask if the user wants to play again
     printf("Do you want to play again?(Enter 'Y' for YES or 'N' for NO): ");
     scanf(" %c", &continue_playing);
-    //printf("%c\n", continue_playing);
-    if(continue_playing == 'Y' || continue_playing == 'y'){
-        // TODO: it would be better to not recursively call yourself. 
-        //       doing it this way will cause too much memory consumption.
-        //       instead, use a while or do-while loop.
-        play_game();
-    }
-    else {
-        // Exit the program
-        exit(0);
-    }
+    if(continue_playing == 'Y' || continue_playing == 'y')
+        return 1;
+    else
+        return 0;
 }
 
 int main()
 {
+    int play_again;
     // Setting a seed for the rand() function
     srand(time(NULL));
-
-    play_game();
+    
+    // Keep running the function play_game() until the user doesn't want
+    // to play anymore.
+    do {
+        play_again = play_game();
+    } while(play_again);
 
     return 0;
 }
