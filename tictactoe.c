@@ -6,10 +6,10 @@ void display_board(char* arr)
 {
     #if _WIN32
         // Clear the screen on windows machines
-//        system("cls");
+        system("cls");
     #else
         // Clear the screen on linux/mac machines
-//        system("clear");
+        system("clear");
     #endif
     
     printf(" %c | %c | %c \n", arr[0], arr[1], arr[2]);
