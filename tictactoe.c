@@ -12,11 +12,11 @@ void display_board(char* arr)
         system("clear");
     #endif
     
-    printf(" %c | %c | %c \n", arr[0], arr[1], arr[2]);
+    printf(" %c | %c | %c\n", arr[0], arr[1], arr[2]);
     printf("---+---+---\n");
-    printf(" %c | %c | %c \n", arr[3], arr[4], arr[5]);
+    printf(" %c | %c | %c\n", arr[3], arr[4], arr[5]);
     printf("---+---+---\n");
-    printf(" %c | %c | %c \n", arr[6], arr[7], arr[8]);
+    printf(" %c | %c | %c\n\n", arr[6], arr[7], arr[8]);
 }
 
 // Takes an array pointer as parameter
@@ -35,6 +35,7 @@ int get_user_input(char* arr)
 
         else if (arr[user_input] == 'X' || arr[user_input] == 'O')
             printf("Error: The spot is already taken\n");
+
         else
             return user_input;
     }
@@ -57,14 +58,12 @@ void get_computer_input(char* arr, int num_of_available_slot)
        computer input. For instance, if the computer input is 5. It follows an 
        algorithm to find the 5th available spot on the board and place the symbol.
     */
-    for(int i = 0; i <= 8; ++i){
+    for(i = 0; i <= 8; ++i){
         // Check if 'i'th spot is available. If available, then check if 
         // this is the desired slot. If so, then place the symbol.
         if (arr[i] != 'X' && arr[i] != 'O'){
             if (available_slot_found == computer_input){
                 arr[i] = 'O';
-                // Reset availavle_slot_found variable for the next turn
-               // available_slot_found = 0;
                 break;
             }
             else {
@@ -75,7 +74,7 @@ void get_computer_input(char* arr, int num_of_available_slot)
 }
 
 // Checks for three matching symbols. If found, returns the symbol. 
-char check_winning_cases (char* arr)
+char check_winning_cases(char* arr)
 {
     // Matching Rows
     if (arr[0] == arr[1] && arr[1] == arr[2])
@@ -114,7 +113,6 @@ char game()
     int i; // Loop counters
     // Store the return value from check_winning_cases()
     char result;
-    int potential_slot_found;
       
     display_board(input_arr);
 
@@ -163,9 +161,11 @@ void print_game_result(char winner_symbol)
         default:
             printf("THE GAME WAS A DRAW\n");
     }
+    printf("\n");
 }
 
-int play_game() { 
+int play_game() 
+{ 
     char continue_playing;
     int result; // Store the return value from game() function
     
